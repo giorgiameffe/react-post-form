@@ -1,15 +1,21 @@
 // Hook
 import { useState } from "react";
+import axios from "axios";
+
+const endpoint = ' https://67c5b4f3351c081993fb1ab6.mockapi.io/api/posts';
 
 function App() {
 
-  // variabile di stato che corrisponde ad un oggetto
-  const [formPost, setFormPost] = useState({
+  // variabile che contiene lo stato iniziale 
+  const initialFormPost = {
     author: '',
     title: '',
     body: '',
     public: false
-  })
+  }
+
+  // variabile di stato che corrisponde ad un oggetto
+  const [formPost, setFormPost] = useState(initialFormPost);
 
   // funzione unica per la gestione dell'evento OnChange dei campi
   function handleFormPost(event) {
@@ -25,8 +31,15 @@ function App() {
 
   // funzione per creare nuovo post tramite chiamata all'API
   function createPost(event) {
+
     event.preventDefault();
     console.log('Ho creato un nuovo post');
+
+    // chiamata con axios all'endpoint indicato e variabile useState che sarà aggiornata
+    axios.post(endpoint, formPost)
+      .then(response => console.log(response.data));
+
+    setFormPost(initialFormPost);
   }
 
   //
