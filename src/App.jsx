@@ -1,5 +1,6 @@
 // Hook
 import { useState } from "react";
+// Axios
 import axios from "axios";
 
 const endpoint = ' https://67c5b4f3351c081993fb1ab6.mockapi.io/api/posts';
@@ -33,14 +34,24 @@ function App() {
   function createPost(event) {
 
     event.preventDefault();
-    console.log('Ho creato un nuovo post');
 
     // chiamata con axios all'endpoint indicato e variabile useState che sarà aggiornata
     axios.post(endpoint, formPost)
-      .then(response => console.log(response.data));
+      .then(response => {
+        console.log(response.data)
 
-    setFormPost(initialFormPost);
+        // alert per avvisare il client che l'operazione è andata a buon fine
+        alert('La creazione del post è andata a buon fine!');
+
+        setFormPost(initialFormPost);
+
+      })
+      .catch(error => {
+        // alert per avvisare il client che l'operazione non è andata a buon fine
+        alert('Ops..Qualcosa è andato storto!')
+      })
   }
+
 
   //
 
